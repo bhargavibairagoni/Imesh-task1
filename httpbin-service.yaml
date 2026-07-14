@@ -4,7 +4,7 @@ metadata:
   name: httpbin-service
 spec:
   selector:
-    app: nginx
+    app: httpbin
   ports:
   - port: 80
     targetPort: 80
