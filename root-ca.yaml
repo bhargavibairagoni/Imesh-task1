@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: root-ca
+  namespace: assignment
+spec:
+  isCA: true
+  commonName: IMESH Root CA
+  secretName: root-ca-secret
+
+  privateKey:
+    algorithm: RSA
+    size: 2048
+
+  issuerRef:
+    name: selfsigned-clusterissuer
+    kind: ClusterIssuer
