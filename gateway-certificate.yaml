@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gateway-tls
+  namespace: assignment
+spec:
+  secretName: gateway-tls-secret
+
+  dnsNames:
+    - web.company.local
+    - api.company.local
+    - test.company.local
+
+  issuerRef:
+    name: ca-clusterissuer
+    kind: ClusterIssuer
+
+  privateKey:
+    algorithm: RSA
+    size: 2048
