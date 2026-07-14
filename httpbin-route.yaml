@@ -1,0 +1,29 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: httpbin-route
+  namespace: assignment
+spec:
+  parentRefs:
+    - name: company-gateway
+  hostnames:
+    - api.company.local
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            add:
+              - name: X-Company
+                value: IMESH
+      backendRefs:
+        - name: httpbin-service
+          port: 80
