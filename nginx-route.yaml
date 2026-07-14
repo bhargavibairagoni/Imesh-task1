@@ -1,0 +1,24 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nginx-route
+  namespace: assignment
+spec:
+  parentRefs:
+    - name: company-gateway
+  hostnames:
+    - web.company.local
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            add:
+              - name: X-Company
+                value: IMESH
+      backendRefs:
+        - name: nginx-service
+          port: 80
